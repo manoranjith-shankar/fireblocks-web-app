@@ -1,12 +1,29 @@
-import React from "react";
+import { Snippet } from "@nextui-org/snippet";
+import { Code } from "@nextui-org/code"
+import { title, subtitle } from "@/components/primitives";
 
-export default function Page() {
-  return (
-    <div className="h-[50rem] w-full bg-black bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center justify-center">
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-      <p className="text-4xl sm:text-7xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
-        test background
-      </p>
-    </div>
-  );
+export default function Home() {
+	return (
+		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+			<div className="inline-block max-w-lg text-center justify-center">
+				<h1 className={title()}>Make&nbsp;</h1>
+				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
+				<br />
+				<h1 className={title()}>
+					websites regardless of your design experience.
+				</h1>
+				<h2 className={subtitle({ class: "mt-4" })}>
+					Beautiful, fast and modern React UI library.
+				</h2>
+			</div>
+
+			<div className="mt-8">
+				<Snippet hideSymbol hideCopyButton variant="flat">
+					<span>
+						Get started by editing <Code color="primary">app/page.tsx</Code>
+					</span>
+				</Snippet>
+			</div>
+		</section>
+	);
 }
