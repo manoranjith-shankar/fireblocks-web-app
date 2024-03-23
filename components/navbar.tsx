@@ -23,6 +23,7 @@ import {
 	SearchIcon,
 } from "@/components/icons";
 
+
 export const Navbar = () => {
 
 	return (
