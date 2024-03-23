@@ -5,7 +5,7 @@ import { UserAuth } from "@/app/context/AuthContext"
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User} from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 
-export default function Page() {
+export default function AuthButton() {
   const {user, googleSignIn, logOut, loading} = UserAuth();
 
   const handleSignIn = async () => {
@@ -28,7 +28,6 @@ export default function Page() {
       { loading ? null : !user ? (
         <Button onClick={handleSignIn}>Sign In</Button>
       ) : (
-        <div className="flex items-center gap-4">
       <Dropdown placement="bottom-start">
         <DropdownTrigger>
           <User
@@ -52,7 +51,6 @@ export default function Page() {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-    </div>
       )}
     </div>
   );

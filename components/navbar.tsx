@@ -22,7 +22,7 @@ import {
 	HeartFilledIcon,
 	SearchIcon,
 } from "@/components/icons";
-
+import AuthButton from "../app/context/authButton";
 
 export const Navbar = () => {
 
@@ -61,8 +61,9 @@ export const Navbar = () => {
 						<GithubIcon className="text-default-500" />
 					</Link>
 				</NavbarItem>
-				<NavbarItem className="hidden md:flex">
-					<Button
+				<NavbarItem className="hidden md:flex mt-2">
+					<AuthButton />
+					{/* <Button
             			isExternal
 						as={Link}
 						className="text-sm font-normal text-default-600 bg-default-100"
@@ -71,7 +72,7 @@ export const Navbar = () => {
 						variant="flat"
 					>
 						Login
-					</Button>
+					</Button> */}
 				</NavbarItem>
 			</NavbarContent>
 

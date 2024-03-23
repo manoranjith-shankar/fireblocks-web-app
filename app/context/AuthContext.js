@@ -30,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user)
       setLoading(false)
     })
@@ -38,7 +38,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [user])
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
+    <AuthContext.Provider value={{ user, googleSignIn, logOut, loading }}>
       {children}
     </AuthContext.Provider>
   )
