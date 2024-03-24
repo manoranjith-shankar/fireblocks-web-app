@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fireblocks/ncw-js-sdk": "^12.0.0",
     "@nextui-org/button": "2.0.26",
     "@nextui-org/code": "2.0.24",
     "@nextui-org/input": "2.1.16",
@@ -31,6 +32,7 @@
     "eslint": "8.48.0",
     "eslint-config-next": "14.0.2",
     "firebase": "^10.9.0",
+    "fireblocks-sdk": "^5.23.0",
     "framer-motion": "^10.18.0",
     "intl-messageformat": "^10.5.0",
     "mini-svg-data-uri": "^1.4.4",

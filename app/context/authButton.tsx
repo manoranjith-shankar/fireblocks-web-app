@@ -28,7 +28,7 @@ export default function AuthButton() {
       { loading ? null : !user ? (
         <Button onClick={handleSignIn}>Sign In</Button>
       ) : (
-      <Dropdown placement="bottom-start">
+      <Dropdown placement="bottom-start" backdrop="blur">
         <DropdownTrigger>
           <User
             as="button"
