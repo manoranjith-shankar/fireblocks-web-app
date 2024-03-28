@@ -1,16 +1,19 @@
 "use client"
 
 import React from "react";
-import { UserAuth } from "@/app/context/AuthContext"
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User} from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 
+import { useAppStore } from "@/app/AppStore";
+
 export default function AuthButton() {
-  const {user, googleSignIn, logOut, loading} = UserAuth();
+
+  const { loggedUser, logout, login } = useAppStore();
 
   const handleSignIn = async () => {
     try {
-      await googleSignIn();
+      await login()
+      console.log(loggedUser)
     } catch (error) {
       console.log(error)
     }
@@ -18,14 +21,14 @@ export default function AuthButton() {
 
   const handleSignOut = async () => { 
     try {
-      await logOut();
+      await logout()
     } catch (error) {
       console.log(error)
     }
   }
   return (
     <div>
-      { loading ? null : !user ? (
+      {!loggedUser ? (
         <Button onClick={handleSignIn}>Sign In</Button>
       ) : (
       <Dropdown placement="bottom-start" backdrop="blur">
@@ -34,17 +37,17 @@ export default function AuthButton() {
             as="button"
             avatarProps={{
               isBordered: true,
-              src: `${user.photoURL}`,
+              src: `${loggedUser.photoURL}`,
             }}
             className="transition-transform"
-            description={user.email}
-            name={user.displayName}
+            description={loggedUser.email}
+            name={loggedUser.displayName}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
-            <p className="font-bold">{user.displayName}</p>
+            <p className="font-bold">userName</p>
           </DropdownItem>
           <DropdownItem key="logout" color="danger" onClick={handleSignOut}>
             Log Out

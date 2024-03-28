@@ -1,3 +1,5 @@
+"use client"
+
 import { useContext, createContext, useState, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
 import { auth }  from "@/config/FirebaseConfig"
@@ -7,6 +9,7 @@ const AuthContext = createContext()
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [accessToken, setAccessToken] = useState('')
 
   const googleSignIn = () => {
     const Provider = new GoogleAuthProvider()
@@ -35,10 +38,11 @@ export const AuthContextProvider = ({ children }) => {
       setLoading(false)
     })
     return () => unsubscribe()
+
   }, [user])
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logOut, loading }}>
+    <AuthContext.Provider value={{ user, googleSignIn, logOut, loading, accessToken }}>
       {children}
     </AuthContext.Provider>
   )
