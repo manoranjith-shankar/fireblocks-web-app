@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react";
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User} from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, User} from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 
 import { useAppStore } from "@/app/AppStore";
@@ -13,7 +13,6 @@ export default function AuthButton() {
   const handleSignIn = async () => {
     try {
       await login()
-      console.log(loggedUser)
     } catch (error) {
       console.log(error)
     }
@@ -47,7 +46,7 @@ export default function AuthButton() {
         <DropdownMenu aria-label="User Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
-            <p className="font-bold">userName</p>
+            <p className="font-bold">{loggedUser.displayName}</p>
           </DropdownItem>
           <DropdownItem key="logout" color="danger" onClick={handleSignOut}>
             Log Out

@@ -40,7 +40,6 @@ export const useAppStore = create<IAppState>()((set, get) => {
   authManager.onUserChanged((user) => {
     set({ loggedUser: user });
   });
-
   const updateOrAddTx = (existingTxs: ITransactionData[], newTx: ITransactionData): ITransactionData[] => {
     const index = existingTxs.findIndex((tx) => tx.id === newTx.id);
     if (index === -1) {

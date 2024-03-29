@@ -1,5 +1,5 @@
 import { IBackupInfo, INewTransactionData, IPassphraseInfo } from "@/app/IAppState";
-import { IAuthManager } from "../auth/IAuthManager";
+import { IAuthManager } from "@/app/auth/IAuthManager";
 import { Manager, Socket, io } from "socket.io-client";
 
 export type TTransactionStatus =
@@ -189,7 +189,7 @@ export class ApiService {
   }
 
   public async login(): Promise<string> {
-    const response = await this._postCall(`api/login`); 
+    const response = await this._postCall(`api/login`);
     const userId = response.id;
     return userId;
   }

@@ -22,7 +22,7 @@ import {
 	HeartFilledIcon,
 	SearchIcon,
 } from "@/components/icons";
-import AuthButton from "../app/context/authButton";
+import AuthButton from "../app/auth/AuthButton";
 
 export const Navbar = () => {
 
