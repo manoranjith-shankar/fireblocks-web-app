@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import { LayoutProvider } from "./LayoutProvider";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
@@ -28,6 +29,7 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head />

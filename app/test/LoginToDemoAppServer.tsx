@@ -1,25 +1,26 @@
 import React, { useEffect } from "react";
 import { useAppStore } from "../AppStore";
-import { Button } from "./ui/Button";
-import { Card } from "./ui/Card";
+import { ActionButton } from "./ActionButton";
+import { Card } from "./Card";
 
-const LoginToDemoAppServer = () => {
+const LoginToDemoAppServer: React.FC = () => {
   const { userId, loginToDemoAppServerStatus, automateInitialization, loginToDemoAppServer } = useAppStore();
 
   useEffect(() => {
-    if (automateInitialization && userId === null) {
+    if (automateInitialization && userId === null && loginToDemoAppServerStatus !== "started") {
       loginToDemoAppServer();
     }
-  }, [loginToDemoAppServer, automateInitialization, userId]);
+  }, [automateInitialization, userId, loginToDemoAppServerStatus, loginToDemoAppServer]);
 
-  const handleLogin = () => {
-    if (loginToDemoAppServerStatus !== "started") {
-      loginToDemoAppServer();
-    }
+  const cardAction = {
+    action: loginToDemoAppServer,
+    isDisabled: loginToDemoAppServerStatus === "started" || !!userId,
+    isInProgress: loginToDemoAppServerStatus === "started",
+    label: "Login to the Demo App Server",
   };
 
   return (
-    <Card title="Login">
+    <Card title="Login" actions={[cardAction]}>
       {userId && (
         <div className="mockup-code">
           <pre>
@@ -47,12 +48,6 @@ const LoginToDemoAppServer = () => {
           </div>
         </div>
       )}
-      <Button
-        label="Login to the Demo App Server"
-        onClick={handleLogin}
-        disabled={loginToDemoAppServerStatus === "started" || !!userId}
-        inProgress={loginToDemoAppServerStatus === "started"}
-      />
     </Card>
   );
 };

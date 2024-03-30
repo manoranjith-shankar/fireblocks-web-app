@@ -179,7 +179,7 @@ export class ApiService {
       this._baseUrl = this._baseUrl.slice(0, -1);
     }
 
-    this.manager = new Manager(this._baseUrl, { autoConnect: true });
+    this.manager = new Manager(this._baseUrl, { autoConnect: false });
     this.socket = this.manager.socket("/", {
       auth: async (cb) => cb({ token: await this.authManager.getAccessToken() }),
     });
