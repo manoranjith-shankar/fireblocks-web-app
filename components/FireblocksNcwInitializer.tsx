@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { useAppStore } from '@/app/AppStore'
-import { Card, CardBody, CardHeader, Button } from '@nextui-org/react';
+import { Card, CardBody, CardHeader, Button, Progress } from '@nextui-org/react';
 import { ENV_CONFIG } from '@/app/env_config';
 import ConfirmModal from "@/components/confirmModal";
-
 
 const FireblocksNcwInitializer = () => {
     const {
@@ -69,6 +68,14 @@ const FireblocksNcwInitializer = () => {
                     >
                     Initialize Fireblocks SDK
                 </Button>
+                    )}
+                    {fireblocksNCWStatus === "initializing_sdk" && (
+                      <Progress
+                      size="sm"
+                      isIndeterminate
+                      aria-label="Initializing..."
+                      className="max-w-md" 
+                      />
                     )}
             {fireblocksNCWStatus === "sdk_available" && (
                 <>

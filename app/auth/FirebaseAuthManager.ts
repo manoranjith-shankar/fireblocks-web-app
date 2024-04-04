@@ -4,14 +4,24 @@ import { IAuthManager, IUser } from "./IAuthManager";
 import { getUserGoogleDriveProvider } from "./providers";
 
 const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API,
-    authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
-    storageBucket: process.env.STORAGE_BUCKET,
-    messagingSenderId: process.env.MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_APP_ID,
-    measurementId: process.env.MEASUREMENT_ID
+  apiKey: "AIzaSyA2E5vK3fhxvftpfS02T8eIC3SrXnIUjrs",
+  authDomain: "fireblocks-sdk-demo.firebaseapp.com",
+  projectId: "fireblocks-sdk-demo",
+  storageBucket: "fireblocks-sdk-demo.appspot.com",
+  messagingSenderId: "127498444203",
+  appId: "1:127498444203:web:31ff24e7a4c6bfa92e46ee",
 };
+
+// local backend
+// const firebaseConfig = {
+//   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API,
+//   authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
+//   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+//   storageBucket: process.env.STORAGE_BUCKET,
+//   messagingSenderId: process.env.MESSAGING_SENDER_ID,
+//   appId: process.env.NEXT_PUBLIC_APP_ID,
+//   measurementId: process.env.MEASUREMENT_ID
+// };
 
 export class FirebaseAuthManager implements IAuthManager {
   private readonly _auth: Auth;

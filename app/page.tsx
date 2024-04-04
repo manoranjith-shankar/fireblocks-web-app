@@ -7,6 +7,8 @@ import { Button } from "@nextui-org/button";
 import { Snippet } from "@nextui-org/react";
 import CreateWalletModal from "../components/AssignDevice";
 import FireblocksNcwInitializer from "@/components/FireblocksNcwInitializer";
+import { FireblocksNCWActions } from "@/components/FireblocksNCWActions";
+import GenerateMPCKeys from "@/components/GenerateMPCKeys";
 
 export default function Home() {
   const { loggedUser,
@@ -22,7 +24,8 @@ export default function Home() {
         assignDeviceStatus,
         appMode,
         walletId,
-        setDeviceId
+        setDeviceId,
+        fireblocksNCWStatus
       } = useAppStore();
   const [initialized, setInitialized] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,7 +101,10 @@ export default function Home() {
   </Card>
       )}
       {assignDeviceStatus === "success" && (
+        <>
         <FireblocksNcwInitializer />
+        {fireblocksNCWStatus === "sdk_available" && <FireblocksNCWActions />}
+        </>
       )}
     <CreateWalletModal onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} isJoinWallet={isJoinWallet} />
     </section>
