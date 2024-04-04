@@ -5,11 +5,10 @@ import { useAppStore } from "./AppStore";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 import { Snippet } from "@nextui-org/react";
-import { validateGuid } from "@/components/validateGuid";
+import CreateWalletModal from "../components/AssignDevice";
+import FireblocksNcwInitializer from "@/components/FireblocksNcwInitializer";
 
 export default function Home() {
-
-  const [device, setDevice] = useState("");
   const { loggedUser,
     appStoreInitialized,
      initAppStore,
@@ -26,6 +25,8 @@ export default function Home() {
         setDeviceId
       } = useAppStore();
   const [initialized, setInitialized] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isJoinWallet, setIsJoinWallet] = useState(false);
 
   useEffect(() => {
     if (loggedUser) {
@@ -37,9 +38,6 @@ export default function Home() {
   // console.log(appStoreInitialized, "1")
   // console.log(loginToDemoAppServerStatus, "2")
 
-  const validDeviceId = validateGuid(deviceId);
-  // const isValidWalletId = validateGuid(walletId);
-
   useEffect(() => {
     if (initialized && loggedUser ) {
       loginToDemoAppServer()
@@ -48,17 +46,14 @@ export default function Home() {
 
   const handleCreateWallet = () => {
     setAppMode("SIGN_IN")
+    setIsModalOpen(true)
+    setIsJoinWallet(false)
   }
 
-  const handleAssignDevice = () => {
-      console.log("login status", loginToDemoAppServerStatus)
-      setDeviceId(deviceId)
-      assignCurrentDevice();
-      console.log("assigning device", assignDeviceStatus)
-  }
-
-  const handlegenerateNewDeviceId = () => {
-    generateNewDeviceId()
+  const handleJoinWallet = () => {
+    setAppMode("JOIN")
+    setIsModalOpen(true)
+    setIsJoinWallet(true)
   }
 
   return (
@@ -76,28 +71,36 @@ export default function Home() {
       <Divider/>
       <CardBody>
       <div className="grid grid-cols-2">
-      <Button className="m-3 p-4" onClick={handleCreateWallet}>
+      <Button className="m-3 p-4" onClick={() => handleCreateWallet()}>
         Create new wallet
       </Button>
-      <Button className="m-3 px-4">
+      <Button className="m-3 px-4" onClick={() => handleJoinWallet()}>
         Join existing Wallet
       </Button>
-      </div> 
+      </div>
       </CardBody>
-      <CardFooter>
-        <div className="flex flex-col">
-        <Snippet symbol= " " variant="bordered">
-          {deviceId}
-          </Snippet>
-          <Button className="m-4" onClick={handlegenerateNewDeviceId}>
-            Generate new Device Id
-          </Button>
-          <Button className="m-4" onClick={handleAssignDevice}>
-            Assign Device
-          </Button>
-          </div>
-        </CardFooter>
     </Card>
+    {assignDeviceStatus === "success" && (
+    <Card className="max-w-[500px]">
+    <CardHeader className="flex justify-center">
+      <p className="text-lg font-medium">Device Information</p>
+    </CardHeader>
+    <CardBody>
+        <div className="mb-2 text-start">Device Id</div>
+          <Snippet symbol=" " variant="bordered">
+            {deviceId}
+          </Snippet>
+        <div className="mt-4 mb-2 text-start">Wallet Id</div>
+          <Snippet symbol=" " variant="bordered">
+            {walletId}
+          </Snippet>
+    </CardBody>
+  </Card>
+      )}
+      {assignDeviceStatus === "success" && (
+        <FireblocksNcwInitializer />
+      )}
+    <CreateWalletModal onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} isJoinWallet={isJoinWallet} />
     </section>
   );
 }
