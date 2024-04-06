@@ -1,13 +1,15 @@
 import React from "react";
 import { useAppStore } from "@/app/AppStore";
-import { AssetRow } from "./AssetRow";
-import { Card, CardBody, Autocomplete, Button, CardHeader, CardFooter, AutocompleteItem, Avatar  } from "@nextui-org/react";
+import { Card, CardHeader, Table, TableHeader, TableColumn, TableBody, Button, Autocomplete, AutocompleteItem, Avatar, Snippet, TableCell, TableRow } from "@nextui-org/react";
+import { AssetRow } from "./RowAsset";
 
 export const Assets: React.FC = () => {
   const { accounts, refreshAccounts, addAsset, refreshSupportedAssets, supportedAssets } = useAppStore();
   const [assetIdPrompt, setAssetIdPrompt] = React.useState<string | null>(null);
   const [isAddingAsset, setIsAddingAsset] = React.useState(false);
   const [isRefreshing, setIsRefreshing] = React.useState(false);
+
+  console.log(accounts, "accounts")
 
   const onAddAssetClicked = async () => {
     if (!assetIdPrompt) {
@@ -48,71 +50,65 @@ export const Assets: React.FC = () => {
   }, []);
 
   return (
-    <Card className="max-w-[500px] min-w-[400px]">
+    <Card className="max-w-[1000px] min-w-[600px]">
       <CardHeader className="flex justify-center">
         <p className="text-lg">Assets</p>
       </CardHeader>
-      <CardBody>
-      <div>
-        {hasAccounts &&
-          accounts.map((account, index) => (
-            <div key={`account${index}`}>
-              <label>Account #{index}</label>
-              <table className="table table-fixed">
-                <thead>
-                  <tr>
-                    <th>Asset</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Address</th>
-                    <th>Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(account).map(([assetId, assetInfo]) => (
-                    <AssetRow key={assetId} assetInfo={assetInfo} />
-                  ))}
-                </tbody>
-              </table>
-              <div className="grid grid-cols-[150px_auto_100px] gap-2 mb-4">
-                <label className="label">
-                  <span className="label-text">Add asset:</span>
-                </label>
-
-                <Autocomplete
-                  value={assetIdPrompt ?? ""}
-                  placeholder="Enter asset ID or Name"
-                  onChange={setAssetIdPrompt}
-                  items={
-                    supportedAssets[index]
-                      ? Object.values(supportedAssets[index]).map(({ id, name, iconUrl }) => (
-                          <AutocompleteItem
-                            key={id}
-                            startContent={<Avatar alt={name} className="w-6 h-6" src={iconUrl} />}
-                          >
-                            {name}
-                          </AutocompleteItem>
-                        ))
-                      : []
-                  }
-                />
-                <Button
-                  className="btn btn-secondary"
-                  onClick={onAddAssetClicked}
-                  disabled={isAddingAsset || !assetIdPrompt || assetIdPrompt.trim().length === 0}
-                >
-                  Add
-                </Button>
-              </div>
+      {hasAccounts &&
+        accounts.map((account, index) => (
+          <div key={`account${index}`}>
+            <p>Account #{index}</p>
+            <Table className="p-5">
+  <TableHeader columns={[
+    { key: "asset", label: "ASSET" },
+    { key: "name", label: "NAME" },
+    { key: "type", label: "TYPE" },
+    { key: "balance", label: "BALANCE" },
+    { key: "address", label: "ADDRESS" },
+  ]}>
+    {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+              </TableHeader>
+              <TableBody>
+              {Object.entries(account).map(([assetId, assetInfo]) => (
+                  <AssetRow key={assetId} assetInfo={assetInfo} />
+              ))}
+              </TableBody>
+            </Table>
+            <div className="flex flex-cols-2 p-4">
+              <Autocomplete
+                value={assetIdPrompt ?? ""}
+                onSelectionChange={setAssetIdPrompt}
+                items={
+                  supportedAssets[index]
+                    ? Object.values(supportedAssets[index]).map(({ id, name, iconUrl }) => ({ id, name, iconUrl }))
+                    : []
+                }
+              >
+                {(asset) => (
+                  <AutocompleteItem
+                    key={asset.id}
+                    textValue={`${asset.name} ${asset.id}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Avatar alt={asset.name} className="flex-shrink-0" size="sm" src={asset.iconUrl} />
+                      <div>{asset.name}</div>
+                    </div>
+                  </AutocompleteItem>
+                )}
+              </Autocomplete>
+              <Button
+                className="ml-2"
+                onClick={onAddAssetClicked}
+                disabled={isAddingAsset || !assetIdPrompt || assetIdPrompt.trim().length === 0}
+              >
+                Add
+              </Button>
             </div>
-          ))}
-      </div>
-      </CardBody>
-      <CardFooter>
-        <Button onClick={onRefreshClicked}>
-          Refresh
-        </Button>
-      </CardFooter>
+          </div>
+        ))}
+      <Button onClick={onRefreshClicked} disabled={isRefreshing}>
+        Refresh
+      </Button>
     </Card>
   );
 };

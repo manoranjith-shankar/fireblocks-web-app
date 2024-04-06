@@ -2,7 +2,7 @@ import React from "react";
 
 import GenerateMPCKeys  from "./GenerateMPCKeys";
 import { BackupAndRecover } from "./BackupAndRecover";
-import { Assets } from "./Assets";
+import { Assets } from "@/components/Assets";
 import { Transactions } from "./Transactions";
 import { useAppStore } from "@/app/AppStore";
 import { Logs } from "./Logs";
@@ -20,8 +20,8 @@ export const FireblocksNCWActions: React.FC = () => {
       <BackupAndRecover />
       {hasAKey && (
         <>
-          {/* <Assets />
-          <Transactions />
+          <Assets />
+          {/* <Transactions />
           <Logs /> */}
           <p>Has a Key</p>
         </>
