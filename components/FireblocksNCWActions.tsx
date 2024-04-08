@@ -23,7 +23,6 @@ export const FireblocksNCWActions: React.FC = () => {
           <Assets />
           {/* <Transactions />
           <Logs /> */}
-          <p>Has a Key</p>
         </>
       )}
     </>

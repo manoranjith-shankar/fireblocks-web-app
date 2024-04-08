@@ -1,7 +1,22 @@
 import React from "react";
 import { useAppStore } from "@/app/AppStore";
-import { Card, CardHeader, Table, TableHeader, TableColumn, TableBody, Button, Autocomplete, AutocompleteItem, Avatar, Snippet, TableCell, TableRow } from "@nextui-org/react";
+import { Card, CardHeader, Table, TableHeader, th, TableBody, Button, Autocomplete, AutocompleteItem, Avatar, Snippet, TableCell, TableRow } from "@nextui-org/react";
 import { AssetRow } from "./RowAsset";
+
+export const assetInfo1 = {
+  asset: {
+    id: "1",
+    name: "BTC",
+    type: "Bitcoin",
+    iconUrl: "https://cryptologos.cc/logos/bitcoin-btc-logo.png",
+  },
+  address: { 
+    address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+  },
+  balance: {
+    total: "100",
+  },
+}
 
 export const Assets: React.FC = () => {
   const { accounts, refreshAccounts, addAsset, refreshSupportedAssets, supportedAssets } = useAppStore();
@@ -50,7 +65,7 @@ export const Assets: React.FC = () => {
   }, []);
 
   return (
-    <Card className="max-w-[1000px] min-w-[600px]">
+    <Card className="max-w-[1200px] min-w-[600px] p-3">
       <CardHeader className="flex justify-center">
         <p className="text-lg">Assets</p>
       </CardHeader>
@@ -58,22 +73,22 @@ export const Assets: React.FC = () => {
         accounts.map((account, index) => (
           <div key={`account${index}`}>
             <p>Account #{index}</p>
-            <Table className="p-5">
-  <TableHeader columns={[
-    { key: "asset", label: "ASSET" },
-    { key: "name", label: "NAME" },
-    { key: "type", label: "TYPE" },
-    { key: "balance", label: "BALANCE" },
-    { key: "address", label: "ADDRESS" },
-  ]}>
-    {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-              </TableHeader>
-              <TableBody>
-              {Object.entries(account).map(([assetId, assetInfo]) => (
-                  <AssetRow key={assetId} assetInfo={assetInfo} />
-              ))}
-              </TableBody>
-            </Table>
+            <table className="table table-fixed">
+                <thead>
+                  <tr>
+                    <th>Asset</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Address</th>
+                    <th>Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(account).map(([assetId, assetInfo]) => (
+                    <AssetRow key={assetId} assetInfo={assetInfo} />
+                  ))}
+                </tbody>
+              </table>
             <div className="flex flex-cols-2 p-4">
               <Autocomplete
                 value={assetIdPrompt ?? ""}
@@ -99,14 +114,17 @@ export const Assets: React.FC = () => {
               <Button
                 className="ml-2"
                 onClick={onAddAssetClicked}
-                disabled={isAddingAsset || !assetIdPrompt || assetIdPrompt.trim().length === 0}
+                isDisabled={isAddingAsset || !assetIdPrompt || assetIdPrompt.trim().length === 0}
               >
                 Add
               </Button>
             </div>
           </div>
         ))}
-      <Button onClick={onRefreshClicked} disabled={isRefreshing}>
+      <Button
+        className="mb-5 ml-3 max-w-[250px]" 
+        onClick={onRefreshClicked} 
+        isDisabled={isRefreshing}>
         Refresh
       </Button>
     </Card>
