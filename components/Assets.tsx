@@ -24,7 +24,9 @@ export const Assets: React.FC = () => {
   const [isAddingAsset, setIsAddingAsset] = React.useState(false);
   const [isRefreshing, setIsRefreshing] = React.useState(false);
 
-  console.log(accounts, "accounts")
+  const onSelectionChange = (value) => {
+    setAssetIdPrompt(value);
+  };
 
   const onAddAssetClicked = async () => {
     if (!assetIdPrompt) {
@@ -92,7 +94,7 @@ export const Assets: React.FC = () => {
             <div className="flex flex-cols-2 p-4">
               <Autocomplete
                 value={assetIdPrompt ?? ""}
-                onSelectionChange={setAssetIdPrompt}
+                onSelectionChange={onSelectionChange}
                 items={
                   supportedAssets[index]
                     ? Object.values(supportedAssets[index]).map(({ id, name, iconUrl }) => ({ id, name, iconUrl }))

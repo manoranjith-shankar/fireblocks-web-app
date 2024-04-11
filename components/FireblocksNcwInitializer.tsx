@@ -17,7 +17,7 @@ const FireblocksNcwInitializer = () => {
       const [isModalOpen, setIsModalOpen] = useState(false);
       const [confirmation, setConfirmation] = useState(false);
 
-      const handleConfirmation = (confirmed) => {
+      const handleConfirmation = (confirmed: boolean) => {
         if (confirmed) {
           setConfirmation(true);
         }
