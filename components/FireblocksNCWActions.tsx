@@ -1,11 +1,10 @@
 import React from "react";
 
-import GenerateMPCKeys  from "./GenerateMPCKeys";
-import { BackupAndRecover } from "./BackupAndRecover";
-import { Assets } from "@/components/Assets";
+import GenerateMPCKeys  from "./Initializer/GenerateMPCKeys";
+import { BackupAndRecover } from "./Backup/BackupAndRecover";
+import { Assets } from "@/components/Assets/Assets";
 import { useAppStore } from "@/app/AppStore";
-import TxPageTest from "@/app/test/page";
-import Transactions from "./Transactions";
+import Transactions from "./Transactions/Transactions";
 
 export const FireblocksNCWActions: React.FC = () => {
   const { keysStatus } = useAppStore();
@@ -22,8 +21,6 @@ export const FireblocksNCWActions: React.FC = () => {
         <>
           <Assets />
           <Transactions />
-          {/* <Transactions />
-          <Logs /> */}
         </>
       )}
     </>

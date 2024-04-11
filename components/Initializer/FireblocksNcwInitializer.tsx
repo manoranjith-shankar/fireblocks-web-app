@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useAppStore } from '@/app/AppStore'
 import { Card, CardBody, CardHeader, Button, Progress } from '@nextui-org/react';
 import { ENV_CONFIG } from '@/app/env_config';
-import ConfirmModal from "@/components/confirmModal";
+import ConfirmModal from "@/components/ui/confirmModal";
 
 const FireblocksNcwInitializer = () => {
     const {

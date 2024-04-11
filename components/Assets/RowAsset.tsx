@@ -1,6 +1,6 @@
 import React from "react";
 import { IAssetInfo } from "@/app/IAppState";
-import { Copyable } from "./Copyable";
+import { Copyable } from "../ui/Copyable";
 
 interface IProps {
   assetInfo: IAssetInfo;

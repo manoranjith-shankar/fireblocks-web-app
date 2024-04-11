@@ -1,8 +1,9 @@
 import React from "react";
 import { useAppStore } from "@/app/AppStore";
 import { ITransactionData, ITransactionDetails, TTransactionStatus } from "@/app/services/ApiService";
-import { Copyable } from "./Copyable";
+import { Copyable } from "../ui/Copyable";
 import toast from "react-hot-toast";
+import { Button } from "@nextui-org/react";
 
 interface IProps {
   tx: ITransactionData;
@@ -130,7 +131,6 @@ export const TransactionRow: React.FC<IProps> = ({ tx }) => {
   const isMountedRef = React.useRef<boolean>(false);
   const [inProgress, setInProgress] = React.useState<boolean>(false);
   const [isSdkCompletedSigning, setSdkCompletedSigning] = React.useState<boolean>(false);
-  const [errorStr, setErrorStr] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     isMountedRef.current = true;
@@ -142,7 +142,6 @@ export const TransactionRow: React.FC<IProps> = ({ tx }) => {
   const onSignTransactionClicked = async (txId: string) => {
     setInProgress(true);
     try {
-      setErrorStr(null);
       setSdkCompletedSigning(false);
       await signTransaction(txId);
       setSdkCompletedSigning(true);
@@ -150,9 +149,9 @@ export const TransactionRow: React.FC<IProps> = ({ tx }) => {
     } catch (err: unknown) {
       setInProgress(false);
       if (err instanceof Error) {
-        setErrorStr(err.message);
+        toast.error(err.message, { duration: 5000 });
       } else {
-        setErrorStr("Unknown error");
+        toast.error("Unknown error", { duration: 5000 });
       }
     }
   };
@@ -169,11 +168,6 @@ export const TransactionRow: React.FC<IProps> = ({ tx }) => {
       <td className="px-1 text-ellipsis overflow-hidden whitespace-nowrap">
         <>
           <Copyable value={tx.id} />
-          {errorStr && 
-            toast.error(errorStr, {
-              duration: 5000,
-            })
-          }
         </>
       </td>
       <td className="px-1">{formatTimeAgo(new Date(tx.createdAt!))}</td>
@@ -193,22 +187,22 @@ export const TransactionRow: React.FC<IProps> = ({ tx }) => {
         ) : (
           <div className="flex gap-1">
             {tx.status === "PENDING_SIGNATURE" ? (
-              <button
+              <Button
                 className="btn btn-sm btn-primary"
                 disabled={inProgress}
                 onClick={() => onSignTransactionClicked(tx.id)}
               >
                 {label}
-              </button>
+              </Button>
             ) : null}
             {tx.details && !isFinal(tx.status) && (
-              <button
+              <Button
                 className="btn btn-sm btn-secondary"
                 disabled={inProgress || tx.status === "CANCELLING"}
                 onClick={() => onCancelTransactionClicked(tx.id)}
               >
                 Cancel
-              </button>
+              </Button>
             )}
           </div>
         )}

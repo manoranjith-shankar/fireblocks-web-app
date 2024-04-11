@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { useAppStore } from "./AppStore";
 import { Card, CardHeader, CardBody, Divider, Button, Snippet } from "@nextui-org/react";
-import FireblocksNcwInitializer from "@/components/FireblocksNcwInitializer";
+import FireblocksNcwInitializer from "@/components/Initializer/FireblocksNcwInitializer";
 import { FireblocksNCWActions } from "@/components/FireblocksNCWActions";
 import AssignDevice from "@/components/AssignDevice/AssignDevice.tsx";
 
 export default function Home() {
-  const { loggedUser, appStoreInitialized, initAppStore, loginToDemoAppServerStatus, loginToDemoAppServer, deviceId, setAppMode, assignDeviceStatus, walletId, fireblocksNCWStatus } = useAppStore();
+  const { loggedUser, appStoreInitialized, initAppStore, loginToDemoAppServer, deviceId, setAppMode, assignDeviceStatus, walletId, fireblocksNCWStatus } = useAppStore();
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {

@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from "react";
 import { Button, Card, CardHeader, CardBody } from "@nextui-org/react";
 import { useAppStore } from "@/app/AppStore";
-import CreateTx  from "@/components/CreateTx";
-import { TransactionRow } from "@/components/TransactionRow";
+import CreateTx  from "@/components/Transactions/CreateTx";
+import { TransactionRow } from "@/components/Transactions/TransactionRow";
 
 export default function Transactions() {
   const { txs, accounts } = useAppStore();
@@ -33,7 +33,7 @@ export default function Transactions() {
 
   return (
     <>
-      <Card className="max-w-[1000px] min-w-[400px] p-3">
+      <Card className="max-w-[1200px] min-w-[400px] p-3">
         <CardHeader className="flex justify-center">
           <p className="text-lg">Transactions</p>
         </CardHeader>
@@ -58,7 +58,7 @@ export default function Transactions() {
         </table>
       </div>
           <Button 
-            className="mb-5 ml-3 max-w-[250px]"
+            className="mt-5 ml-3 max-w-[250px]"
             onClick={onOpenModal}
           >
             Create Transaction

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 async function writeToClipboard(value: string) {
@@ -23,14 +23,11 @@ const clipboardIcon = (
 );
 
 export const Copyable: React.FC<{ value: string }> = ({ value }) => {
-  const [showCopied, setShowCopied] = React.useState<boolean>(false);
-  const isMountedRef = React.useRef<boolean>(false);
-  const timeoutIdRef = React.useRef<NodeJS.Timeout | null>(null);
+  const [showCopied, setShowCopied] = useState<boolean>(false);
+  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
 
-  React.useEffect(() => {
-    isMountedRef.current = true;
+  useEffect(() => {
     return () => {
-      isMountedRef.current = false;
       if (timeoutIdRef.current) {
         clearTimeout(timeoutIdRef.current);
       }
@@ -44,17 +41,18 @@ export const Copyable: React.FC<{ value: string }> = ({ value }) => {
       clearTimeout(timeoutIdRef.current);
     }
     timeoutIdRef.current = setTimeout(() => {
-      if (isMountedRef.current) {
-        setShowCopied(false);
-      }
+      setShowCopied(false);
     }, 2000);
   };
 
+  useEffect(() => {
+    if (showCopied) {
+      toast.success("Copied to clipboard");
+    }
+  }, [showCopied]);
+
   return (
     <span className="flex gap-1 items-center">
-      {showCopied ? (
-        toast.success("Copied to clipboard")
-      ) : null}
       <button onClick={doCopy}>{clipboardIcon}</button>
       <label className="text-ellipsis overflow-hidden whitespace-nowrap">{value}</label>
     </span>

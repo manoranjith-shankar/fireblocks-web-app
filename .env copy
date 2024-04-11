@@ -1,0 +1,6 @@
+NEXT_PUBLIC_FIREBASE_API = "AIzaSyB6CT_o2vITcWBNDUxIBi-LuixiMWRp62Q"
+NEXT_PUBLIC_AUTHDOMAIN = "fireblocks-web-app-cdb96.firebaseapp.com"
+NEXT_PUBLIC_PROJECT_ID = "fireblocks-web-app-cdb96"
+STORAGE_BUCKET = "fireblocks-web-app-cdb96.appspot.com" 
+MESSAGING_SENDER_ID = "1052372678042"
+NEXT_PUBLIC_APP_ID = "1:1052372678042:web:f412551d47a46abc89f623"

@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from "react";
 import { Button, Card, CardHeader, CardBody } from "@nextui-org/react";
 import { useAppStore } from "../AppStore";
-import CreateTx  from "@/components/CreateTx";
-import { TransactionRow } from "@/components/TransactionRow";
+import CreateTx  from "@/components/Transactions/CreateTx";
+import { TransactionRow } from "@/components/Transactions/TransactionRow";
 
 export default function TxPageTest() {
   const { txs, accounts } = useAppStore();
