@@ -57,7 +57,10 @@ export default function TxPageTest() {
           </tbody>
         </table>
       </div>
-          <Button onClick={onOpenModal}>
+          <Button 
+            className="mb-5 ml-3 max-w-[250px]"
+            onClick={onOpenModal}
+          >
             Create Transaction
           </Button>
           {assetsToSelectFrom && (

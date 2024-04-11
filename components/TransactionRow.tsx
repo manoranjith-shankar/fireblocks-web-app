@@ -2,6 +2,7 @@ import React from "react";
 import { useAppStore } from "@/app/AppStore";
 import { ITransactionData, ITransactionDetails, TTransactionStatus } from "@/app/services/ApiService";
 import { Copyable } from "./Copyable";
+import toast from "react-hot-toast";
 
 interface IProps {
   tx: ITransactionData;
@@ -168,6 +169,11 @@ export const TransactionRow: React.FC<IProps> = ({ tx }) => {
       <td className="px-1 text-ellipsis overflow-hidden whitespace-nowrap">
         <>
           <Copyable value={tx.id} />
+          {errorStr && 
+            toast.error(errorStr, {
+              duration: 5000,
+            })
+          }
         </>
       </td>
       <td className="px-1">{formatTimeAgo(new Date(tx.createdAt!))}</td>

@@ -1,61 +1,20 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-	name: "Next.js + NextUI",
-	description: "Make beautiful websites regardless of your design experience.",
+	name: "NCW PoC",
+	description: "An Example PoC for Fireblocks integration with Next.js and NextUI",
 	navItems: [
 		{
-			label: "Home",
+			label: "App",
 			href: "/",
 		},
     {
-      label: "About",
-      href: "/about",
+      label: "Docs",
+      href: "https://ncw-developers.fireblocks.com/docs/setup",
     },
-	{
-		label: "Profile",
-		href: "/profile",
-	  },
 	  {
-		label: "Test",
-		href: "/test",
+		label: "Github",
+		href: "/https://github.com/manoranjith-shankar/fireblocks-web-app",
 	  }
-	],
-	navMenuItems: [
-		{
-			label: "Profile",
-			href: "/profile",
-		},
-		{
-			label: "Dashboard",
-			href: "/dashboard",
-		},
-		{
-			label: "Projects",
-			href: "/projects",
-		},
-		{
-			label: "Team",
-			href: "/team",
-		},
-		{
-			label: "Calendar",
-			href: "/calendar",
-		},
-		{
-			label: "Settings",
-			href: "/settings",
-		},
-		{
-			label: "Help & Feedback",
-			href: "/help-feedback",
-		},
-		{
-			label: "Logout",
-			href: "/logout",
-		},
-	],
-	links: {
-		github: "https://github.com/manoranjith-shankar",
-	},
+	]
 };

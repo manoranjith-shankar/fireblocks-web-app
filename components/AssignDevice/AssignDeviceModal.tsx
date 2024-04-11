@@ -11,10 +11,9 @@ import {
   Snippet
 } from "@nextui-org/react";
 import { useAppStore } from "@/app/AppStore";
-import toast from "react-hot-toast";
 import { validateGuid } from "@/components/validateGuid";
 
-export default function AssignDevice({ isOpen, onClose, isJoinWallet }) {
+export default function AssignDeviceModal({ isOpen, onClose, isJoinWallet }) {
   const {
     deviceId,
     walletId,
@@ -37,7 +36,12 @@ export default function AssignDevice({ isOpen, onClose, isJoinWallet }) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} placement="top-center">
+      <Modal 
+        isOpen={isOpen} 
+        onClose={onClose} 
+        placement="top-center"
+        backdrop="blur"
+      >
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1">
@@ -50,13 +54,13 @@ export default function AssignDevice({ isOpen, onClose, isJoinWallet }) {
             </ModalHeader>
             <ModalBody>
               Device Id
-              <Snippet symbol=" " variant="bordered">
+              <Snippet hideSymbol variant="bordered">
                 {deviceId}
               </Snippet>
               {walletId && isJoinWallet === false ? (
                 <>
                   <span>Wallet Id</span>
-                  <Snippet symbol=" " variant="bordered">
+                  <Snippet hideSymbol variant="bordered">
                     {walletId}
                   </Snippet>
                 </>
@@ -76,7 +80,6 @@ export default function AssignDevice({ isOpen, onClose, isJoinWallet }) {
             </ModalBody>
             <ModalFooter>
               <Button
-                color="danger"
                 variant="flat"
                 onClick={handleGenerateNewDeviceId}
                 isDisabled={assignDeviceStatus === "started"}
@@ -84,7 +87,6 @@ export default function AssignDevice({ isOpen, onClose, isJoinWallet }) {
                 Generate new Device Id
               </Button>
               <Button
-                color="primary"
                 onClick={handleAssignDevice}
                 isDisabled={assignDeviceStatus === "started"}
                 isLoading={assignDeviceStatus === "started"}

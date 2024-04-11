@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/AssignDevice.tsx", "app/context/AuthContext.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/AssignDevice/AssignDeviceModal.tsx", "app/context/AuthContext.js"],
   "exclude": ["node_modules"]
 }

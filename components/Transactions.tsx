@@ -1,18 +1,26 @@
-import React from "react";
-import { useAppStore } from "../AppStore";
-import { TransactionRow } from "./TransactionRow";
-import { IActionButtonProps } from "./ui/ActionButton";
-import { Card } from "./ui/Card";
-import { NewTxDialog } from "./ui/NewTxDialog";
+"use client"
 
-export const Transactions: React.FC = () => {
+import React, { useState, useMemo } from "react";
+import { Button, Card, CardHeader, CardBody } from "@nextui-org/react";
+import { useAppStore } from "@/app/AppStore";
+import CreateTx  from "@/components/CreateTx";
+import { TransactionRow } from "@/components/TransactionRow";
+
+export default function Transactions() {
   const { txs, accounts } = useAppStore();
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onOpenModal = () => setIsModalOpen(true);
-  const onCloseModal = () => setIsModalOpen(false);
+  const onOpenModal = () => {
+    console.log("Opening modal");
+    setIsModalOpen(true);
+  };
+  
+  const onCloseModal = () => {
+    console.log("Closing modal");
+    setIsModalOpen(false);
+  };
 
-  const assetsToSelectFrom = React.useMemo(() => {
+  const assetsToSelectFrom = useMemo(() => {
     const assetsList = accounts.map((account) => {
       return Object.entries(account).map(([_, assetInfo]) => {
         const { id, name, iconUrl } = assetInfo.asset;
@@ -23,15 +31,14 @@ export const Transactions: React.FC = () => {
     return assetsList[0];
   }, [accounts]);
 
-  const createTxAction: IActionButtonProps = {
-    action: onOpenModal,
-    label: "Create Tx",
-    isDisabled: !assetsToSelectFrom?.length,
-  };
-
   return (
-    <Card title="Transactions" actions={[createTxAction]}>
-      <div className="overflow-x-auto">
+    <>
+      <Card className="max-w-[1000px] min-w-[400px] p-3">
+        <CardHeader className="flex justify-center">
+          <p className="text-lg">Transactions</p>
+        </CardHeader>
+        <CardBody>
+        <div className="overflow-x-auto">
         <table className="table table-fixed">
           <thead>
             <tr>
@@ -50,10 +57,21 @@ export const Transactions: React.FC = () => {
           </tbody>
         </table>
       </div>
-
-      {assetsToSelectFrom && (
-        <NewTxDialog isOpen={isModalOpen} onClose={onCloseModal} assetsToSelectFrom={assetsToSelectFrom} />
-      )}
-    </Card>
+          <Button 
+            className="mb-5 ml-3 max-w-[250px]"
+            onClick={onOpenModal}
+          >
+            Create Transaction
+          </Button>
+          {assetsToSelectFrom && (
+              <CreateTx
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                assetsToSelectFrom={assetsToSelectFrom} 
+              />
+          )}
+        </CardBody>
+      </Card>
+    </>
   );
-};
+}
