@@ -179,7 +179,7 @@ export class ApiService {
       this._baseUrl = this._baseUrl.slice(0, -1);
     }
 
-    this.manager = new Manager(this._baseUrl, { autoConnect: false });
+    this.manager = new Manager(this._baseUrl, { autoConnect: true });
     this.socket = this.manager.socket("/", {
       auth: async (cb) => cb({ token: await this.authManager.getAccessToken() }),
     });
@@ -407,10 +407,12 @@ export class ApiService {
       body: JSON.stringify(body ?? {}),
     });
 
-    if (!response.ok) {
-      throw new Error(`A call to "${path}" failed with status ${response.status}`);
-    }
     const responseJson = await response.json();
+    if (!response.ok) {
+      throw new Error(
+        `A call to "${path}" failed with status ${response.status}, data: ${JSON.stringify(responseJson)}`,
+      );
+    }
     return responseJson;
   }
 

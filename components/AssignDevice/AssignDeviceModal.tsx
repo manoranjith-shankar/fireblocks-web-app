@@ -88,7 +88,7 @@ export default function AssignDeviceModal({ isOpen, onClose, isJoinWallet }) {
               </Button>
               <Button
                 onClick={handleAssignDevice}
-                isDisabled={assignDeviceStatus === "started"}
+                isDisabled={assignDeviceStatus === "started" && !isValidDeviceId}
                 isLoading={assignDeviceStatus === "started"}
                 spinner={
                   <svg
